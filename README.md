@@ -15,3 +15,11 @@ Installation
 3. After installing all dependencies run command ```php bin/console export:salary-dates```
 4. You will get success message in console "File created successfully!".
 5. Now check CSV file in ```public/files``` folder of code.
+
+PHPUnit 
+------------
+For unit testing i used PHPUnit so run following command to execute the test cases.
+
+```php
+ ./vendor/bin/phpunit
+```
