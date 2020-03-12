@@ -36,7 +36,7 @@ class SalaryDetails
 
         //update CSV file with month-wise
         foreach ($months as $month){
-            fputcsv($file, $this->getSalaryAndBonusDateByMonth($month, $year));
+           fputcsv($file, $this->getSalaryAndBonusDateByMonth($month, $year));
         }
 
         fclose($file);
