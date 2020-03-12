@@ -7,7 +7,7 @@ use Console\App\Commands\ExportCSVCommand;
 use Console\App\Model\SalaryDetails;
 
 $app = new Application();
-$salesManager = new SalaryDetails();
+$salesDetails = new SalaryDetails();
 
-$app->add(new ExportCSVCommand($salesManager));
+$app->add(new ExportCSVCommand($salesDetails));
 $app->run();
