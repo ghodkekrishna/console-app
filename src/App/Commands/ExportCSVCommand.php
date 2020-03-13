@@ -25,10 +25,11 @@ class ExportCSVCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $this->salaryModel->downloadCSVFile();
+            $year = date("Y");
+            $this->salaryModel->downloadCSVFile($year);
 
             // show success message in console
-            $output->writeln("CSV file created successfully!");
+            $output->writeln("CSV file created successfully for year $year!");
         } catch(\Exception $e) {
             // show error message in console
             $output->writeln("Error : ".$e->getMessage());

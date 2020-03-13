@@ -8,12 +8,12 @@ class SalaryModel
      *
      * @author Krishna Ghodke
      *
+     * @param string $year
+     *
      * @return boolean
      */
-    public function downloadCSVFile()
+    public function downloadCSVFile($year)
     {
-        // Current year and month list
-        $year = date("Y");
         $months = [
             'January',
             'February',
@@ -56,29 +56,20 @@ class SalaryModel
      */
     function getSalaryAndBonusDateByMonth($month, $year)
     {
-        $lastDate = date('d-m-Y',strtotime("last day of $month $year"));
-        $date = strtotime($lastDate);
-        $day = date('l', $date);
-
-        $bonusDate = $this->getBonusDatesByMonth();
-        $weekend = ['Saturday', 'Sunday'];
-        if(in_array($day, $weekend)){
-            if($day == 'Saturday'){
-                $dayAfterTomorrowDate = date ('Y-m-d',strtotime('-1 day', $date));
-                $dayAfterTomorrowDate = strtotime($dayAfterTomorrowDate);
-                $lastDate = date('d-m-Y', $dayAfterTomorrowDate);
+        $date = date('Y-m-d',strtotime("last day of $month $year"));
+        if(in_array(date('l', strtotime($date)), ['Saturday', 'Sunday'])){
+            if(date('l', strtotime($date)) == 'Saturday'){
+                $date = date('Y-m-d',strtotime('-1 day', strtotime($date)));
             }else{
-                $tomorrowDate = date ('Y-m-d',strtotime('-2 day', $date));
-                $tomorrowDate = strtotime($tomorrowDate);
-                $lastDate = date('d-m-Y', $tomorrowDate);
+                $date = date('Y-m-d',strtotime('-2 day', strtotime($date)));
             }
         }
 
-        return [$month, $lastDate, $bonusDate[$month]];
+        return [$month, $date, $this->getBonusDatesByMonth()[$month]];
     }
 
     /**
-     * Return the 15th day of the Month
+     * Return the bonus dates of the Month
      *
      * @author Krishna Ghodke
      *
@@ -86,36 +77,16 @@ class SalaryModel
      */
     function getBonusDatesByMonth()
     {
-        $beginDate = new \DateTime('15 January');
-
-        // clone start date
-        $endDate = clone $beginDate;
-
-        // Add 1 year to start date
-        $endDate->modify('+1 year');
-
-        // Increase with an interval of one month
-        $dateInterval = new \DateInterval('P1M');
-
-        $dateRange = new \DatePeriod($beginDate, $dateInterval, $endDate);
-
+        $months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         $bonusData = [];
-        foreach ($dateRange as $day) {
-            $lastDate = date('d-m-Y',strtotime($day->format('Y-m-d')));
-            $date = strtotime($lastDate);
-            $day = date('l', $date);
-            $month=date("F",$date);
-
-            $weekend = ['Saturday', 'Sunday'];
-            if(in_array($day, $weekend)){
-                $wednesdayNextWeek = date('Y-m-d', strtotime('next wednesday', $date));
-                $wednesdayNextWeek = strtotime($wednesdayNextWeek);
-                $lastDate = date('d-m-Y', $wednesdayNextWeek);
+        foreach($months as $key => $month){
+            $date = date("Y-m-d", mktime(0,0,0,$month,15));
+            if(in_array(date('l', strtotime($date)), ['Saturday', 'Sunday'])){
+                $date = date('Y-m-d', strtotime('next wednesday', strtotime($date)));
             }
 
-            $bonusData[$month] = $lastDate;
+            $bonusData[date("F",strtotime($date))] = $date;
         }
-
         return $bonusData;
     }
 }
