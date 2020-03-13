@@ -5,7 +5,7 @@ This is command line tool helps to export CSV file with month-wise salary and bo
 
 Prerequisites
 -------------
-This is standalone php application developed using ```console component`` of symfony framework. You need composer to install dependencies of application.
+This is standalone php application developed using ``console component`` of symfony framework. You need composer to install dependencies of application.
 
 Installation
 ------------
