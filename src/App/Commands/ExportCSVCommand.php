@@ -5,14 +5,14 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Console\App\Model\SalaryDetails;
+use Console\App\Model\SalaryModel;
 
 class ExportCSVCommand extends Command
 {
     protected $salaryDetails;
-    public function __construct(SalaryDetails $salaryDetails)
+    public function __construct(SalaryModel $salaryModel)
     {
-        $this->salaryDetails = $salaryDetails;
+        $this->salaryModel = $salaryModel;
         parent::__construct();
     }
 
@@ -25,7 +25,7 @@ class ExportCSVCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $this->salaryDetails->downloadCSVFile();
+            $this->salaryModel->downloadCSVFile();
 
             // show success message in console
             $output->writeln("CSV file created successfully!");

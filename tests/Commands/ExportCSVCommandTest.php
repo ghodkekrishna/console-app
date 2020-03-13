@@ -1,15 +1,15 @@
 <?php
 namespace Console\App\tests\Commands;
 
-use Console\App\Model\SalaryDetails;
+use Console\App\Model\SalaryModel;
 use PHPUnit\Framework\TestCase;
 
 class ExportCSVCommandTest extends TestCase
 {
     public function testDownloadCSVFile()
     {
-        $salaryDetails = new SalaryDetails();
-        $output = $salaryDetails->downloadCSVFile();
+        $salaryModel = new SalaryModel();
+        $output = $salaryModel->downloadCSVFile();
 
         $this->assertTrue($output);
     }

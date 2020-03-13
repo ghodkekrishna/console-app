@@ -1,17 +1,16 @@
 <?php
-namespace Console\App\Controller;
-
 
 class IndexController
 {
+    private $model;
 
-    public function __construct()
+    function __construct($model)
     {
-        //TODO:// initialize stuff here
+        $this->model = $model;
     }
 
-    public function indexAction($request)
+    public function sayWelcome()
     {
-        var_dump('in'); die;
+        return $this->model->welcomeMessage();
     }
 }

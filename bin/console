@@ -4,10 +4,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 use Console\App\Commands\ExportCSVCommand;
-use Console\App\Model\SalaryDetails;
+use Console\App\Model\SalaryModel;
 
 $app = new Application();
-$salesDetails = new SalaryDetails();
+$salesModel = new SalaryModel();
 
-$app->add(new ExportCSVCommand($salesDetails));
+$app->add(new ExportCSVCommand($salesModel));
 $app->run();

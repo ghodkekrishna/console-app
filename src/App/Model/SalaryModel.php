@@ -1,7 +1,7 @@
 <?php
 namespace Console\App\Model;
 
-class SalaryDetails
+class SalaryModel
 {
     /**
      * This function used to create CSV file for salary dates of whole year.

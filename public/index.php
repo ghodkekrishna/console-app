@@ -1,22 +1,18 @@
 <?php
-use Console\App\Controller\IndexController;
+require_once __DIR__.'/../src/app/Model/indexModel.php';
+require_once __DIR__.'/../src/app/Controller/IndexController.php';
+require_once __DIR__.'/../src/app/View/indexView.php';
 
-if (isset($_GET['action']))
+$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'],'/')) : '/';
+
+// handle root requests
+if ($url == '/')
 {
-    // router
-    switch ($_GET['action'])
-    {
-        case 'about':
-            $controllerName = 'IndexController';
-            $action = 'aboutAction';
-            break;
-    }
-} else
-{
-    $controllerName = 'IndexController';
-    $action = 'indexAction';
+    $indexModel = New IndexModel();
+    $indexController = New IndexController($indexModel);
+    $indexView = New IndexView($indexController);
+
+    print $indexView->index();
+}else{
+// handle other than root request
 }
-
-$controller = new IndexController();
-$controller->indexAction($_REQUEST);
-//$controller->$action($_REQUEST);
