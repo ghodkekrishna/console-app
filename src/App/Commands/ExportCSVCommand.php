@@ -29,7 +29,7 @@ class ExportCSVCommand extends Command
             $this->salaryModel->downloadCSVFile($year);
 
             // show success message in console
-            $output->writeln("CSV file created successfully for year $year!");
+            $output->writeln("CSV file created successfully for year: $year!");
         } catch(\Exception $e) {
             // show error message in console
             $output->writeln("Error : ".$e->getMessage());
